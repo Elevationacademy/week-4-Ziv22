@@ -3,28 +3,29 @@ const app = express()
 const path = require('path')
 
 app.use(express.static(path.join(__dirname, 'dist')))
+app.use(express.static(path.join(__dirname, 'node_modules')))
 
-
-// app.get('/', function (req, res) {
-//     res.send("Hi")
-//     console.log("Someone has come into the server. Brace yourselves.")
-    
-// })
-app.get('/life', function (req, res) {
-    res.send("42")
-    console.log("42")
-    
-})
-app.get('/users/:user', function (req, res) {
-    res.send(`hello ${users[req.params.user]}`)
-    console.log("42")
+app.get('/books/:bookId', function (req, res) {
+    let bookId = req.params.bookId
+    res.send(data[bookId])
     
 })
 
-app.get('/details' , function(req ,res){
-    let params = req.query
-    res.send(params)
-})
+
+const data = {
+    8112: {
+        title: "Name of the Wind",
+        author: "Patrick Rothfuss"
+    },
+    9121: {
+        title: "The Catcher in the Rye",
+        author: "J.D. Salinger"
+    },
+    1081: {
+        title: "The Giver",
+        author: "Lois Lowry"
+    }
+}
 
 const port = 3000
 app.listen(port, function(){
@@ -32,8 +33,3 @@ app.listen(port, function(){
 })
 
 
-const users = {
-    tilda: "You've done a wonderful job",
-    riva: "You need to improve your form, but good perseverance",
-    jeremy: "You're incredible"
-}
